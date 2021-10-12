@@ -1,0 +1,85 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+   
+    public static String findDay(int month, int day, int year) 
+    {
+    int last_digit = year-2000;
+    int f1= year%4;
+    int divide_by_4= last_digit/4;
+    int a=0;
+    if(month==1) a=0;
+    if(month==2) a=3;
+    if(month==3) a=3;
+    if(month==4) a=6;
+    if(month==5) a=1;
+    if(month==6) a=4;
+    if(month==7) a=6;
+    if(month==8) a=2;
+    if(month==9) a=5;
+    if(month==10) a=0;
+    if(month==11) a=3;
+    if(month==12) a=5;  
+    
+    int c=0;
+    
+    if (year>=2000) c=6;
+    if (year<2000 && year>=1900) c=0;
+    if (year<1900 && year>=1800) c=2;
+    if (year<1800 && year>=1700) c=4;
+    if (year<1700 && year>=1600) c=6;
+        
+    int total = last_digit + divide_by_4 + day + a + c;
+    int answer= total % 7; 
+    int j1= year%4;
+    String [] s1 = {"SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"};
+    
+    if(year==2012||year==2024||year==2036||year==2048||year==2060||year==2072||year==2084||year==2096)
+    {
+    return s1[answer];
+    }
+    if(j1==0)
+    {
+    return s1[answer-1];
+    }
+    
+    else
+    return s1[answer];
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int month = Integer.parseInt(firstMultipleInput[0]);
+
+        int day = Integer.parseInt(firstMultipleInput[1]);
+
+        int year = Integer.parseInt(firstMultipleInput[2]);
+
+        String res = Result.findDay(month, day, year);
+
+        bufferedWriter.write(res);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
